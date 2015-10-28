@@ -6,4 +6,4 @@ Now it has following data structures:
 * Linked List Two Way (in progress)
 
 ## Special Thanks To:   
-AliAkbar Badri who contributed to this project.
+AliAkbar Badri who cooperated on this project.
