@@ -1,4 +1,3 @@
-// class.cpp by Bill Weinman <http://bw.org/>
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
@@ -12,7 +11,6 @@ class Stack
 public:
     Stack();
     int pop();
-    void init();
     void push(int data);
 };
 
@@ -35,7 +33,6 @@ void Stack::push(int data)
 {
     if(arr_size == pos )
     {
-        cout<<arr_size<<" "<<pos<<" "<<"GONE!"<<endl;
         arr = (int *) realloc(arr,(arr_size + 10)*sizeof(int));
         arr_size = arr_size + 10;
     }
