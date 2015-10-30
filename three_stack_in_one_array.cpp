@@ -202,7 +202,6 @@ int main()
 
     }
     s1.push3(5);
-
     cout<<s1.spaceBetween2and3()<<endl;
 
     return 0;
