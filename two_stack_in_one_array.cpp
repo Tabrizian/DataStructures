@@ -1,4 +1,3 @@
-// class.cpp by Bill Weinman <http://bw.org/>
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
