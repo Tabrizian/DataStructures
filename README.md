@@ -5,6 +5,7 @@ Now it has following data structures:
 * Linked List One Way   
 * Linked List Two Way 
 * Stack implemented with array  
+* Two Stack implemented in on array
 
 ## Special Thanks To:   
 AliAkbar Badri who cooperated on this project.
