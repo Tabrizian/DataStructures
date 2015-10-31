@@ -66,6 +66,49 @@ void print_list(struct node *first)
     cout << "]";
 }
 
+int list_size(struct node *first){
+    int siz = 0;
+    struct node* current;
+    for(current=first; current!=NULL; current=current->link)
+    {
+        if(current->tag == 0)
+            siz ++;
+        if(current->tag == 1)
+            siz += list_size(current->link_in);
+
+    }
+    return siz;
+}
+int list_depth(struct node *first){
+    int depth = 0;
+    struct node* current;
+    for(current=first; current!=NULL; current=current->link)
+    {
+        if(current->tag == 1)
+            depth = list_depth(current->link_in);
+
+    }
+    return depth + 1;
+}
+int find_max(int a,int b){
+    if(a >= b)
+        return a;
+    else
+        return b;
+}
+int max_path(struct node*first){
+    struct node* current = first;
+    int path = 0;
+    if(current == NULL){
+        return 0;
+    }
+    if(current->tag == 0)
+            return max_path(first->link)+1;
+    else
+        return find_max(max_path(current->link_in),max_path(current->link));
+
+}
+
 //void add_front(struct node** first,int data)
 //{
 //    struct node* new_node = create_node(data);
@@ -126,6 +169,9 @@ int main()
     add_end(second,12);
     add_end(second,23);
     add_end(first,second);
-    print_list(first);
+    add_end(first,90);
+    add_end(first,100);
+    add_end(first,70);
+    cout<<max_path(first);
     return 0;
 }
