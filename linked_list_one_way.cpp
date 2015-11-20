@@ -16,6 +16,13 @@ struct node* create_node(int data)
     result->link = NULL;
     return result;
 }
+//Recursive
+int size_of(struct node* first){
+    if(first == NULL)
+        return 0;
+    else
+        return (size_of(first->link) + 1);
+}
 
 void add_end(struct node * first, int data)
 {
