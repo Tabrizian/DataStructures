@@ -17,7 +17,8 @@ struct node* create_node(int data)
     return result;
 }
 //Recursive
-int size_of(struct node* first){
+int size_of(struct node* first)
+{
     if(first == NULL)
         return 0;
     else
@@ -106,6 +107,14 @@ void remove_item(struct node** first,int data)
     }
 
 }
+//Except the first node
+void delete_node(struct node* before_delete_node)
+{
+    struct node* deleted = before_delete_node->link;
+    struct node* next = before_delete_node->link->link;
+    free(deleted);
+    before_delete_node->link = next;
+}
 
 struct node* merge_lists(struct node *first_x,struct node *first_y)
 {
@@ -125,8 +134,8 @@ struct node* merge_lists(struct node *first_x,struct node *first_y)
         else
             cout<<" "<<temp->data<<endl;
         */
-        for(;first_x->link&&first_x->link->data<first_y->data;first_x=first_x->link);
-        for(;first_y->link&&first_y->link->data<first_x->data;first_y=first_y->link);
+        for(; first_x->link&&first_x->link->data<first_y->data; first_x=first_x->link);
+        for(; first_y->link&&first_y->link->data<first_x->data; first_y=first_y->link);
         if(first_x->data>=first_y->data)
         {
             temp = first_y;
@@ -144,17 +153,60 @@ struct node* merge_lists(struct node *first_x,struct node *first_y)
     return result;
 
 }
-int main()
+
+void delete_duplicates(struct node* first)
 {
-    struct node* first_y = create_node(10);
-    add_end(first_y,18);
-    add_end(first_y,80);
-    add_end(first_y,90);
-    add_end(first_y,180);
-    add_end(first_y,190);
-    struct node* first_x = create_node(15);
-    add_end(first_x,16);
-    add_end(first_x,40);
-    print_list(merge_lists(first_y,first_x));
-    return 0;
+    if(first == NULL)
+        return;
+    for(struct node* i = first; i!=NULL; i=i->link)
+    {
+        cout<<"Checking: "<<i->data<<" ..."<<endl;
+        for(struct node* j = i; j->link!=NULL;)
+        {
+            cout<<"With: "<<j->link->data<<" ..."<<endl;
+            if(j->link->data == i->data)
+            {
+                delete_node(j);
+            }
+            else
+            {
+                j=j->link;
+            }
+        }
+    }
 }
+void delete_evens(struct node** first)
+{
+
+    while((*first)!=NULL&&((*first)->data)%2==0)
+    {
+        delete_front(first);
+    }
+    if((*first) == NULL)
+        return;
+    struct node* current = *first;
+    for(; current->link != NULL; )
+    {
+        if(current->link->data % 2 == 0){
+            delete_node(current);
+        }else{
+            current = current->link;
+        }
+    }
+}
+
+//int main()
+//{
+//    struct node* first_y = create_node(12);
+//    add_end(first_y,12);
+//    add_end(first_y,20);
+//    add_end(first_y,18);
+//    add_end(first_y,18);
+//    add_end(first_y,0);
+//    add_end(first_y,18);
+//    print_list(first_y);
+//    delete_evens(&first_y);
+//    cout<<"New List:"<<endl;
+//    print_list(first_y);
+//    return 0;
+//}

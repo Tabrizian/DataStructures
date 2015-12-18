@@ -1,6 +1,10 @@
 # depslib dependency file v1.0
-1446307854 source:c:\users\dell-iman\documents\universty\term 3\data structures - dr. dehghan\ds\main.cpp
+1450439791 source:c:\users\dell-iman\documents\universty\term 3\data structures - dr. dehghan\ds\main.cpp
 	<cstdlib>
 	<cstdio>
+	<cstring>
 	<iostream>
+	<conio.h>
+	<queue>
+	<stack>
 
