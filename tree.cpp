@@ -55,7 +55,8 @@ void post_order(struct node* root){
 }
 
 void level_order(struct node* root){
-    queue<struct node*> currents;
+    static queue<struct node*> currents;
+    currents.push(root);
 }
 
 void post_order_non_recursive(struct node* root){
@@ -120,16 +121,16 @@ struct node * same_grandpa(struct node* x, struct node* y, struct node * root){
 }
 
 int main(){
-    struct node* root = create_node('A');
-    add_left('B',root);
-    add_left('D',root->lp);
-    add_left('F',root->lp->lp);
-    add_right('C',root);
-    add_right('I',root->rp);
-    add_right('L',root->rp->rp);
-    add_left('K',root->rp->rp);
-    add_right('E',root->lp);
-    add_right('G',root->lp->lp);
-    cout<<depth(root);
+    struct node* root = create_node('F');
+    add_left('D',root);
+    add_left('G',root->lp);
+    add_left('B',root->lp->lp);
+    add_right('K',root);
+    add_right('L',root->rp);
+    add_right('A',root->lp);
+    add_left('C',root->lp->rp);
+    add_right('E',root->lp->lp);
+    add_left('I',root->rp);
+    pre_order(root);
     return 0;
 }
