@@ -8,83 +8,86 @@
 
 using namespace std;
 
-struct node{
-    struct node * lp;
-    struct node * rp;
+struct node {
+    struct node *lp;
+    struct node *rp;
     char data;
 };
 
-struct node* create_node(char data){
-    struct node * new_node = (struct node*) malloc(sizeof(node));
+struct node *create_node(char data) {
+    struct node *new_node = (struct node *) malloc(sizeof(node));
     new_node->data = data;
     new_node->rp = NULL;
     new_node->lp = NULL;
     return new_node;
 }
-struct node* add_left(char data,struct node* parent){
-    struct node * new_node = create_node(data);
+
+struct node *add_left(char data, struct node *parent) {
+    struct node *new_node = create_node(data);
     parent->lp = new_node;
 }
 
-struct node* add_right(char data,struct node* parent){
-    struct node * new_node = create_node(data);
+struct node *add_right(char data, struct node *parent) {
+    struct node *new_node = create_node(data);
     parent->rp = new_node;
 }
 
-void pre_order(struct node* root){
-    if(root == NULL) return;
-    cout<<root->data<<" ";
+void pre_order(struct node *root) {
+    if (root == NULL) return;
+    cout << root->data << " ";
     pre_order(root->lp);
     pre_order(root->rp);
 }
 
-void in_order(struct node* root){
-    if(root == NULL) return;
+void in_order(struct node *root) {
+    if (root == NULL) return;
     in_order(root->lp);
-    cout<<root->data<<" ";
+    cout << root->data << " ";
     in_order(root->rp);
 }
+
 int i = 0;
-void post_order(struct node* root){
+
+void post_order(struct node *root) {
     i++;
-    if(root == NULL) return;
+    if (root == NULL) return;
     post_order(root->lp);
     post_order(root->rp);
-    cout<<root->data<<" ";
+    cout << root->data << " ";
 
 }
 
-void level_order(struct node* root){
-    static queue<struct node*> currents;
+void level_order(struct node *root) {
+    static queue<struct node *> currents;
     currents.push(root);
 }
 
-void post_order_non_recursive(struct node* root){
-    stack<struct node*> currents;
+void post_order_non_recursive(struct node *root) {
+    stack<struct node *> currents;
     currents.push(root);
-    bool visited[] = {false,false,false};
-    while(!currents.empty()){
-        if(currents.top()->lp!=NULL&&!visited[0]){
-            cout<<"Left :"<<currents.top()->data<<endl;
+    bool visited[] = {false, false, false};
+    while (!currents.empty()) {
+        if (currents.top()->lp != NULL && !visited[0]) {
+            cout << "Left :" << currents.top()->data << endl;
             currents.push(currents.top()->lp);
 
-        }else if(currents.top()->rp!=NULL&&!visited[1]){
-            cout<<"Right :"<<currents.top()->data<<endl;
+        } else if (currents.top()->rp != NULL && !visited[1]) {
+            cout << "Right :" << currents.top()->data << endl;
             currents.push(currents.top()->rp);
-        }else{
-            cout<<currents.top()->data<<" ";
-            struct node* temp = currents.top();
+        } else {
+            cout << currents.top()->data << " ";
+            struct node *temp = currents.top();
             currents.pop();
-            if(!currents.empty()){
-                if(currents.top()->lp == temp){
-                    cout<<"Right is visited! "<<endl;
+            if (!currents.empty()) {
+                if (currents.top()->lp == temp) {
+                    cout << "Right is visited! " << endl;
                     visited[0] = true;
                 }
-                else if(currents.top()->rp == temp){
+                else if (currents.top()->rp == temp) {
                     visited[1] = true;
-                    cout<<"Left is visited! "<<endl;
-                } else{
-                    cout<<"?????? "<<endl;
+                    cout << "Left is visited! " << endl;
+                } else {
+                    cout << "?????? " << endl;
                     visited[0] = false;
                     visited[1] = false;
                 }
@@ -92,22 +95,25 @@ void post_order_non_recursive(struct node* root){
 
         }
     }
-    cout<<endl;
+    cout << endl;
 }
-int depth(struct node* root){
-    if(root == NULL) return 0;
-    else
-        return max(depth(root->lp),depth(root->rp))+1;
-}
-queue<struct node*> saff;
-void print_tree(struct node* root){
-    if(root == NULL) return;
-    if(root->lp != NULL) saff.push(root->lp);
-    if(root->rp != NULL) saff.push(root->rp);
 
-    cout<<root->data<<endl;
-    if(!saff.empty()){
-        struct node* keep = saff.front();
+int depth(struct node *root) {
+    if (root == NULL) return 0;
+    else
+        return max(depth(root->lp), depth(root->rp)) + 1;
+}
+
+queue<struct node *> saff;
+
+void print_tree(struct node *root) {
+    if (root == NULL) return;
+    if (root->lp != NULL) saff.push(root->lp);
+    if (root->rp != NULL) saff.push(root->rp);
+
+    cout << root->data << endl;
+    if (!saff.empty()) {
+        struct node *keep = saff.front();
         saff.pop();
         print_tree(keep);
     }
@@ -116,21 +122,33 @@ void print_tree(struct node* root){
 
 }
 
-struct node * same_grandpa(struct node* x, struct node* y, struct node * root){
+struct node *same_grandpa(struct node *x, struct node *y, struct node *root) {
 
 }
 
-int main(){
-    struct node* root = create_node('F');
-    add_left('D',root);
-    add_left('G',root->lp);
-    add_left('B',root->lp->lp);
-    add_right('K',root);
-    add_right('L',root->rp);
-    add_right('A',root->lp);
-    add_left('C',root->lp->rp);
-    add_right('E',root->lp->lp);
-    add_left('I',root->rp);
-    pre_order(root);
+int sum(struct node *root) {
+    if (root == NULL) return 0;
+    else return sum(root->rp) + sum(root->lp) + root->data;
+}
+
+int size(struct node *root){
+    if(root == NULL) return 0;
+    else return size(root->lp) + size(root->rp) + 1;
+}
+
+
+
+int main() {
+    struct node *root = create_node('F');
+    add_left('D', root);
+    add_left('G', root->lp);
+    add_left('B', root->lp->lp);
+    add_right('K', root);
+    add_right('L', root->rp);
+    add_right('A', root->lp);
+    add_left('C', root->lp->rp);
+    add_right('E', root->lp->lp);
+    add_left('I', root->rp);
+    cout<<size(root->lp);
     return 0;
 }
