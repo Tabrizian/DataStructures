@@ -14,6 +14,11 @@ struct node {
     int data;
 };
 
+void swap(struct node **right, struct node **left) {
+
+}
+
+
 struct node *create_node(int data) {
     struct node *new_node = (struct node *) malloc(sizeof(node));
     new_node->data = data;
@@ -46,7 +51,31 @@ struct node *search(int data, struct node *root) {
 }
 
 bool insert(struct node *root, int data) {
+    struct node *p = root;
+    struct node *q = NULL;
+    while (p != NULL) {
+        q = p;
+        if (p->data == data) {
+            return false;
+        }
+        else if (p->data > data) {
+            p = p->lp;
+        } else {
+            p = p->rp;
+        }
+    }
+    if (q->data < data) {
+        q->rp = create_node(data);
+    } else {
+        q->lp = create_node(data);
+    }
+    return true;
+}
 
+int single_child(struct node *root) {
+    if (root == NULL) return 0;
+    else if (root->rp != NULL ^ root->lp != NULL) return single_child(root->rp) + single_child(root->lp) + 1;
+    else return single_child(root->rp) + single_child(root->lp);
 }
 
 int sum(struct node *root) {
@@ -79,10 +108,8 @@ void in_order(struct node *root) {
     in_order(root->rp);
 }
 
-int i = 0;
 
 void post_order(struct node *root) {
-    i++;
     if (root == NULL) return;
     post_order(root->lp);
     post_order(root->rp);
@@ -109,11 +136,9 @@ int main() {
     add_right(30, root->lp);
     add_left(13, root->lp);
     add_left(60, root->rp);
-//    struct node *ans = search(25, root);
-//    if (ans == NULL)
-//        cout << "Not Found!" << endl;
-//    else
-//        cout << ans->data;
+    insert(root, 32);
+    insert(root, 72);
     in_order(root);
+//    in_order(root);
     return 0;
 }

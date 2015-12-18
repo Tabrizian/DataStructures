@@ -46,10 +46,7 @@ void in_order(struct node *root) {
     in_order(root->rp);
 }
 
-int i = 0;
-
 void post_order(struct node *root) {
-    i++;
     if (root == NULL) return;
     post_order(root->lp);
     post_order(root->rp);
@@ -57,13 +54,28 @@ void post_order(struct node *root) {
 
 }
 
+void reverse_bst(struct node *root) {
+    if (root == NULL) return;
+    else {
+        swap(root->rp, root->lp);
+        reverse_bst(root->rp);
+        reverse_bst(root->lp);
+    }
+}
+
+int single_child(struct node *root) {
+    if (root == NULL) return 0;
+    else if (root->rp != NULL ^ root->lp != NULL) return single_child(root->rp) + single_child(root->lp) + 1;
+    else return single_child(root->rp) + single_child(root->lp);
+}
+
 void level_order(struct node *root) {
     static queue<struct node *> currents;
-    struct node* current_node = root;
-    while(current_node){
-        cout<<current_node->data<<" ";
-        if(current_node->lp != NULL) currents.push(current_node->lp);
-        if(current_node->rp != NULL) currents.push(current_node->rp);
+    struct node *current_node = root;
+    while (current_node) {
+        cout << current_node->data << " ";
+        if (current_node->lp != NULL) currents.push(current_node->lp);
+        if (current_node->rp != NULL) currents.push(current_node->rp);
         current_node = currents.front();
         currents.pop();
     }
@@ -138,14 +150,14 @@ int sum(struct node *root) {
     else return sum(root->rp) + sum(root->lp) + root->data;
 }
 
-int size(struct node *root){
-    if(root == NULL) return 0;
+int size(struct node *root) {
+    if (root == NULL) return 0;
     else return size(root->lp) + size(root->rp) + 1;
 }
 
-int num_leaves(struct node* root){
-    if(root == NULL) return 0;
-    if(root->rp == NULL && root->lp == NULL) return 1;
+int num_leaves(struct node *root) {
+    if (root == NULL) return 0;
+    if (root->rp == NULL && root->lp == NULL) return 1;
     else return num_leaves(root->rp) + num_leaves(root->lp);
 }
 
@@ -161,6 +173,6 @@ int main() {
     add_left('C', root->lp->rp);
     add_right('E', root->lp->lp);
     add_left('I', root->rp);
-    cout<<num_leaves(root);
+    cout << num_leaves(root);
     return 0;
 }
