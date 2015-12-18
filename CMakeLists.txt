@@ -4,7 +4,6 @@ project(DS)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-    tree.cpp
-    )
+        binary_search_tree.cpp)
 
 add_executable(DS ${SOURCE_FILES})

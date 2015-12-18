@@ -59,7 +59,14 @@ void post_order(struct node *root) {
 
 void level_order(struct node *root) {
     static queue<struct node *> currents;
-    currents.push(root);
+    struct node* current_node = root;
+    while(current_node){
+        cout<<current_node->data<<" ";
+        if(current_node->lp != NULL) currents.push(current_node->lp);
+        if(current_node->rp != NULL) currents.push(current_node->rp);
+        current_node = currents.front();
+        currents.pop();
+    }
 }
 
 void post_order_non_recursive(struct node *root) {
@@ -136,6 +143,11 @@ int size(struct node *root){
     else return size(root->lp) + size(root->rp) + 1;
 }
 
+int num_leaves(struct node* root){
+    if(root == NULL) return 0;
+    if(root->rp == NULL && root->lp == NULL) return 1;
+    else return num_leaves(root->rp) + num_leaves(root->lp);
+}
 
 
 int main() {
@@ -149,6 +161,6 @@ int main() {
     add_left('C', root->lp->rp);
     add_right('E', root->lp->lp);
     add_left('I', root->rp);
-    cout<<size(root->lp);
+    cout<<num_leaves(root);
     return 0;
 }
