@@ -145,6 +145,8 @@ struct node *same_grandpa(struct node *x, struct node *y, struct node *root) {
 
 }
 
+
+
 int sum(struct node *root) {
     if (root == NULL) return 0;
     else return sum(root->rp) + sum(root->lp) + root->data;

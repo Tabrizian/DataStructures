@@ -14,11 +14,6 @@ struct node {
     int data;
 };
 
-void swap(struct node **right, struct node **left) {
-
-}
-
-
 struct node *create_node(int data) {
     struct node *new_node = (struct node *) malloc(sizeof(node));
     new_node->data = data;
@@ -76,6 +71,25 @@ int single_child(struct node *root) {
     if (root == NULL) return 0;
     else if (root->rp != NULL ^ root->lp != NULL) return single_child(root->rp) + single_child(root->lp) + 1;
     else return single_child(root->rp) + single_child(root->lp);
+}
+
+void delete_max(struct node **root) {
+    if (root == NULL) return;
+    else {
+        struct node* p = *root;
+        struct node* q;
+        while(p->rp != NULL){
+            q = p;
+            p = p->rp;
+        }
+        if(q == NULL){
+            delete(*root);
+            *root = p->lp;
+        } else {
+            delete (q->rp);
+            q->rp = NULL;
+        }
+    }
 }
 
 int sum(struct node *root) {
@@ -138,6 +152,7 @@ int main() {
     add_left(60, root->rp);
     insert(root, 32);
     insert(root, 72);
+
     in_order(root);
 //    in_order(root);
     return 0;
